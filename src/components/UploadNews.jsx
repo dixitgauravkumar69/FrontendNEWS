@@ -12,18 +12,18 @@ export default function UploadNews() {
   data.append("image", form.image);
 
   try {
-    const res = await axios.post(
-      "https://backendnews-h3lh.onrender.com/news",
-      data,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-    console.log("Upload response:", res.data);
-    alert("News uploaded!");
-    setForm({ title: "", description: "", image: null });
-  } catch (err) {
-    console.error("Upload failed:", err.response?.data || err.message);
-    alert("Upload failed!");
-  }
+  const res = await axios.post(
+    "https://backendnews-h3lh.onrender.com/news",
+    data,
+    { headers: { "Content-Type": "multipart/form-data" } }
+  );
+  console.log("Upload response:", res.data);
+  alert("News uploaded!");
+} catch (err) {
+  console.error("Upload failed:", err.response?.data || err.message);
+  alert("Upload failed! Check console for details.");
+}
+
 };
 
 
