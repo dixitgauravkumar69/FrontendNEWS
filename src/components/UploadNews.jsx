@@ -5,16 +5,27 @@ export default function UploadNews() {
   const [form, setForm] = useState({ title: "", description: "", image: null });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("title", form.title);
-    data.append("description", form.description);
-    data.append("image", form.image);
+  e.preventDefault();
+  const data = new FormData();
+  data.append("title", form.title);
+  data.append("description", form.description);
+  data.append("image", form.image);
 
-    await axios.post("https://backendnews-h3lh.onrender.com/news", data);
+  try {
+    const res = await axios.post(
+      "https://backendnews-h3lh.onrender.com/news",
+      data,
+      { headers: { "Content-Type": "multipart/form-data" } }
+    );
+    console.log("Upload response:", res.data);
     alert("News uploaded!");
     setForm({ title: "", description: "", image: null });
-  };
+  } catch (err) {
+    console.error("Upload failed:", err.response?.data || err.message);
+    alert("Upload failed!");
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit}>
