@@ -12,14 +12,34 @@ function NewsList() {
   useEffect(() => {
     axios
       .get("https://backendnews-h3lh.onrender.com/api/news")
-      .then((res) => setNews(res.data));
+      .then((res) => setNews(res.data))
+      .catch((err) => console.error(err));
   }, []);
 
-  // ✅ Updated Share Function (backend link with OG meta tags)
-  const shareNews = (id) => {
-    const url = `https://backendnews-h3lh.onrender.com/api/news/share/${id}`; // OG link serve karega
-    navigator.clipboard.writeText(url);
-    alert("Sharable link copied: " + url);
+  // ✅ Copy Card function
+  const shareNews = (item) => {
+    const backendUrl = "https://backendnews-h3lh.onrender.com";
+    const newsUrl = `${backendUrl}/api/news/share/${item._id}`;
+
+    // Rich HTML card
+    const htmlCard = `
+      <div style="border:1px solid #ccc; padding:10px; width:300px; border-radius:8px; font-family: sans-serif;">
+        <a href="${newsUrl}" target="_blank" style="text-decoration:none; color:black;">
+          ${item.imageUrl ? `<img src="${backendUrl}${item.imageUrl}" style="width:100%; border-radius:6px;" />` : ""}
+          <h4>${item.title}</h4>
+          <p>${truncate(item.description, 100)}</p>
+        </a>
+      </div>
+    `;
+
+    navigator.clipboard.write([
+      new ClipboardItem({
+        "text/html": new Blob([htmlCard], { type: "text/html" }),
+        "text/plain": new Blob([newsUrl], { type: "text/plain" }),
+      }),
+    ])
+      .then(() => alert("News card copied! Paste it in a supported editor."))
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -59,15 +79,13 @@ function NewsList() {
           )}
 
           <br />
-          {/* React Detail Page */}
           <Link to={`/news/${item._id}`}>Read More</Link>
 
-          {/* Copy/Share Button */}
           <button
-            onClick={() => shareNews(item._id)}
+            onClick={() => shareNews(item)}
             style={{ marginLeft: "10px" }}
           >
-            Copy/Share
+            Copy/Share Card
           </button>
         </div>
       ))}
