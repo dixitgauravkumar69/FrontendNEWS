@@ -1,39 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import NewsCard from "./NewsCard";
 
-const backendUrl = "https://backendnews-h3lh.onrender.com";
-
-function NewsList() {
-  const [news, setNews] = useState([]);
+export default function NewsList() {
+  const [newsList, setNewsList] = useState([]);
 
   useEffect(() => {
-    axios.get(`${backendUrl}/api/news/`)
-      .then(res => setNews(res.data))
-      .catch(err => console.error(err));
+    axios.get("https://backendnews-h3lh.onrender.com/news").then(res => setNewsList(res.data));
   }, []);
 
   return (
     <div className="news-list">
-      {news.map(n => (
-        <div key={n._id} className="news-card">
-          <img
-            src={n.imageUrl || `${backendUrl}/default-image.png`}
-            alt={n.title}
-            width={300}
-          />
-          <h3>{n.title}</h3>
-          <p>{n.description.substring(0, 100)}...</p>
-          <a
-            href={`https://wa.me/?text=${encodeURIComponent(`${n.title} - ${backendUrl}/api/news/share/${n._id}`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Share on WhatsApp
-          </a>
-        </div>
-      ))}
+      {newsList.map(news => <NewsCard key={news._id} news={news} />)}
     </div>
   );
 }
-
-export default NewsList;
