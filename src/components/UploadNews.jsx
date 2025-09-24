@@ -13,7 +13,7 @@ export default function UploadNews() {
     if (form.video) {
       const videoData = new FormData();
       videoData.append("file", form.video);
-      videoData.append("upload_preset", "unsigned_videos"); // ← replace with your preset
+      videoData.append("upload_preset", "Gaurav_Preset"); // ← replace with your preset
 
       try {
         const res = await axios.post(
