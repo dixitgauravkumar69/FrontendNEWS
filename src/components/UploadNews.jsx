@@ -16,10 +16,11 @@ export default function UploadNews() {
 
     try {
       const res = await axios.post(
-        "https://backendnews-h3lh.onrender.com/news",
-        data,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+  "https://backendnews-h3lh.onrender.com/news", // <-- corrected URL
+  data,
+  { headers: { "Content-Type": "multipart/form-data" } }
+);
+
       console.log("Upload response:", res.data);
       alert("News uploaded!");
       setForm({ title: "", description: "", image: null, video: null }); // reset form
