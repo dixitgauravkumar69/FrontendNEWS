@@ -1,7 +1,7 @@
 import "./NewsCard.css"; // 👈 CSS import
 
 export default function NewsCard({ news }) {
-  const shareUrl = `https://backendnews-h3lh.onrender.com/news/${news._id}/preview`;
+  const shareUrl = `https://backendnews-h3lh.onrender.com/news/${news._id}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(shareUrl);
