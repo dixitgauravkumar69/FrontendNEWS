@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "./NewsDetail.css";
+import "./NewsDetails.css";
 
 export default function NewsDetail() {
   const { id } = useParams();
