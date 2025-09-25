@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import NewsCard from "./NewsCard"; // 👈 import NewsCard
+import NewsCard from "./NewsCard";
+import "./UploadNews.css"; // 👈 import CSS file
 
 export default function UploadNews() {
   const [form, setForm] = useState({
@@ -11,7 +12,6 @@ export default function UploadNews() {
   });
   const [newsList, setNewsList] = useState([]);
 
-  // ✅ Fetch all news on component mount
   useEffect(() => {
     fetchNews();
   }, []);
@@ -29,15 +29,14 @@ export default function UploadNews() {
     e.preventDefault();
     let videoUrl = "";
 
-    // 1️⃣ Upload video to Cloudinary
     if (form.video) {
       const videoData = new FormData();
       videoData.append("file", form.video);
-      videoData.append("upload_preset", "Gaurav_Preset"); // ← your preset
+      videoData.append("upload_preset", "Gaurav_Preset");
 
       try {
         const res = await axios.post(
-          "https://api.cloudinary.com/v1_1/dpheznvvs/video/upload", // ← your cloud name
+          "https://api.cloudinary.com/v1_1/dpheznvvs/video/upload",
           videoData
         );
         videoUrl = res.data.secure_url;
@@ -48,7 +47,6 @@ export default function UploadNews() {
       }
     }
 
-    // 2️⃣ Upload to backend
     const data = new FormData();
     data.append("title", form.title);
     data.append("description", form.description);
@@ -56,16 +54,11 @@ export default function UploadNews() {
     if (videoUrl) data.append("video", videoUrl);
 
     try {
-      const res = await axios.post(
-        "https://backendnews-h3lh.onrender.com/news",
-        data,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-      console.log("Upload response:", res.data);
+      await axios.post("https://backendnews-h3lh.onrender.com/news", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       alert("News uploaded successfully!");
       setForm({ title: "", description: "", image: null, video: null });
-
-      // Refresh news list
       fetchNews();
     } catch (err) {
       console.error("Upload failed:", err.response?.data || err.message);
@@ -74,9 +67,11 @@ export default function UploadNews() {
   };
 
   return (
-    <div>
+    <div className="upload-container">
       {/* Upload Form */}
-      <form onSubmit={handleSubmit}>
+      <form className="upload-form" onSubmit={handleSubmit}>
+        <h2>Upload News</h2>
+
         <input
           type="text"
           placeholder="Title"
@@ -110,12 +105,12 @@ export default function UploadNews() {
       <hr />
 
       {/* Show uploaded news list */}
-      <div>
+      <div className="news-list">
         <h2>All News</h2>
         {newsList.length === 0 ? (
           <p>No news uploaded yet.</p>
         ) : (
-          newsList.map((news, idx) => <NewsCard key={idx} news={news} />) // 👈 use NewsCard here
+          newsList.map((news, idx) => <NewsCard key={idx} news={news} />)
         )}
       </div>
     </div>

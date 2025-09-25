@@ -1,0 +1,70 @@
+/* Container */
+.upload-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form Styling */
+.upload-form {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.upload-form h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+}
+
+.upload-form input[type="text"],
+.upload-form textarea,
+.upload-form input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border 0.2s ease;
+}
+
+.upload-form input:focus,
+.upload-form textarea:focus {
+  border: 1px solid #007bff;
+  outline: none;
+}
+
+/* Button */
+.upload-form button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upload-form button:hover {
+  background: #0056b3;
+}
+
+/* News List */
+.news-list {
+  margin-top: 20px;
+}
+
+.news-list h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #222;
+}

@@ -1,3 +1,5 @@
+import "./NewsCard.css"; // 👈 CSS import
+
 export default function NewsCard({ news }) {
   const shareUrl = `https://backendnews-h3lh.onrender.com/news/${news._id}/preview`;
 
@@ -14,43 +16,23 @@ export default function NewsCard({ news }) {
   };
 
   return (
-    <div
-      className="card"
-      style={{ border: "1px solid #ddd", padding: "15px", margin: "15px" }}
-    >
-      {/* ✅ Show image if available */}
-      {news.image && (
-        <img
-          src={news.image}
-          alt={news.title}
-          width="300"
-          style={{ display: "block", marginBottom: "10px" }}
-        />
-      )}
-
-      {/* ✅ Show video if available */}
+    <div className="news-card">
+      {news.image && <img className="news-image" src={news.image} alt={news.title} />}
       {news.video && (
-        <video
-          width="320"
-          height="240"
-          controls
-          style={{ display: "block", marginBottom: "10px" }}
-        >
+        <video className="news-video" controls>
           <source src={news.video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       )}
-
-      {/* ✅ Title & description */}
-      <h3>{news.title}</h3>
-      <p>{news.description.substring(0, 100)}...</p>
-
-      {/* ✅ Buttons */}
-      <div style={{ marginTop: "10px" }}>
-        <button onClick={handleShare} style={{ marginRight: "10px" }}>
+      <h3 className="news-title">{news.title}</h3>
+      <p className="news-description">{news.description.substring(0, 100)}...</p>
+      <div className="news-buttons">
+        <button className="btn whatsapp-btn" onClick={handleShare}>
           Share on WhatsApp
         </button>
-        <button onClick={handleCopy}>Copy Link</button>
+        <button className="btn copy-btn" onClick={handleCopy}>
+          Copy Link
+        </button>
       </div>
     </div>
   );
