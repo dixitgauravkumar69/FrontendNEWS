@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import NewsCard from "./NewsCard"; // 👈 import NewsCard
 
 export default function UploadNews() {
   const [form, setForm] = useState({
@@ -28,7 +29,7 @@ export default function UploadNews() {
     e.preventDefault();
     let videoUrl = "";
 
-    // 1️⃣ Upload video directly to Cloudinary (if selected)
+    // 1️⃣ Upload video to Cloudinary
     if (form.video) {
       const videoData = new FormData();
       videoData.append("file", form.video);
@@ -47,7 +48,7 @@ export default function UploadNews() {
       }
     }
 
-    // 2️⃣ Upload title, description, image, and video URL to backend
+    // 2️⃣ Upload to backend
     const data = new FormData();
     data.append("title", form.title);
     data.append("description", form.description);
@@ -114,25 +115,7 @@ export default function UploadNews() {
         {newsList.length === 0 ? (
           <p>No news uploaded yet.</p>
         ) : (
-          newsList.map((news, idx) => (
-            <div key={idx} style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}>
-              <h3>{news.title}</h3>
-              <p>{news.description}</p>
-              {news.image && (
-                <img
-                  src={news.image}
-                  alt="news"
-                  style={{ width: "200px", display: "block", marginBottom: "10px" }}
-                />
-              )}
-              {news.video && (
-                <video width="320" height="240" controls>
-                  <source src={news.video} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              )}
-            </div>
-          ))
+          newsList.map((news, idx) => <NewsCard key={idx} news={news} />) // 👈 use NewsCard here
         )}
       </div>
     </div>

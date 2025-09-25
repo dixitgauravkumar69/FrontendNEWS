@@ -14,7 +14,10 @@ export default function NewsCard({ news }) {
   };
 
   return (
-    <div className="card" style={{ border: "1px solid #ddd", padding: "15px", margin: "15px" }}>
+    <div
+      className="card"
+      style={{ border: "1px solid #ddd", padding: "15px", margin: "15px" }}
+    >
       {/* ✅ Show image if available */}
       {news.image && (
         <img
@@ -42,7 +45,7 @@ export default function NewsCard({ news }) {
       <h3>{news.title}</h3>
       <p>{news.description.substring(0, 100)}...</p>
 
-      {/* ✅ Buttons (always visible, outside image/video conditions) */}
+      {/* ✅ Buttons */}
       <div style={{ marginTop: "10px" }}>
         <button onClick={handleShare} style={{ marginRight: "10px" }}>
           Share on WhatsApp
