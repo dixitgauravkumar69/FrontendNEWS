@@ -14,31 +14,41 @@ export default function NewsCard({ news }) {
   };
 
   return (
-    <div className="card">
+    <div className="card" style={{ border: "1px solid #ddd", padding: "15px", margin: "15px" }}>
       {/* ✅ Show image if available */}
       {news.image && (
         <img
           src={news.image}
           alt={news.title}
-          width="200"
+          width="300"
           style={{ display: "block", marginBottom: "10px" }}
         />
       )}
 
       {/* ✅ Show video if available */}
       {news.video && (
-        <video width="320" height="240" controls style={{ display: "block", marginBottom: "10px" }}>
+        <video
+          width="320"
+          height="240"
+          controls
+          style={{ display: "block", marginBottom: "10px" }}
+        >
           <source src={news.video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       )}
 
+      {/* ✅ Title & description */}
       <h3>{news.title}</h3>
       <p>{news.description.substring(0, 100)}...</p>
 
-      {/* ✅ Buttons always visible */}
-      <button onClick={handleShare}>Share on WhatsApp</button>
-      <button onClick={handleCopy}>Copy Link</button>
+      {/* ✅ Buttons (always visible, outside image/video conditions) */}
+      <div style={{ marginTop: "10px" }}>
+        <button onClick={handleShare} style={{ marginRight: "10px" }}>
+          Share on WhatsApp
+        </button>
+        <button onClick={handleCopy}>Copy Link</button>
+      </div>
     </div>
   );
 }
