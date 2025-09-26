@@ -104,15 +104,7 @@ export default function UploadNews() {
 
       <hr />
 
-      {/* Show uploaded news list */}
-      <div className="news-list">
-        <h2>All News</h2>
-        {newsList.length === 0 ? (
-          <p>No news uploaded yet.</p>
-        ) : (
-          newsList.map((news, idx) => <NewsCard key={idx} news={news} />)
-        )}
-      </div>
+     
     </div>
   );
 }
